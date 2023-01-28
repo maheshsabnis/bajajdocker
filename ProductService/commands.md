@@ -77,7 +77,26 @@ ENTRYPOINT [ "dotnet","ProductService.dll" ]
 
         -  docker run -p 9009:80 --name=prdcontainer mast007/productsservice:v1 
 
+# Pulling the SQL Server Image
+- docker pull mcr.microsoft.com/mssql/server:2019-latest
 
+# Connecting to this image by runin  it in DOcker
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=P@ssw0rd_" -p 1450:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+    - Since the 1433 is reserved port for SQL Server, if the SQL Server is already available on the machine, then map to the 1433 port exposed from Image to local machine by using other port e.g. 1450
+
+# Using DOcker-Compose Cluster
+- Navigate to the path where docker-compose.yml is present
+- run the following command
+    - docker-compose up
+        - Build all images either by executing Dockerfile or pulling them from repository
+        - Allocate Memory and Processor
+        - Map with the port as mentioned in docker-compose file
+        - Manage Dependencies across images
+        - Establish Networking across images if required (depends_on) 
+        - Finally Exposes images by hosting them inside the respective containers
+             e.g. if images name for service is 'img', then its container name will be 'service_img'
+   - To release all resources use the following command
+    - docker-compose down          
 
 
 

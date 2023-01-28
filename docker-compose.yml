@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  productservice:
+    build: ./ProductService # path of the Dockerfile
+    ports:
+      - 9001:80
+  categoryservice:
+    build: ./CategoryService
+    ports:
+      - 9002:80  
+   # depends_on:
+   #   - sqldb # the service is depending on the sqldb  
+
+  sqldb: # instance name, update it in service, this will be the container name 
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=P@ssw0rd_
+      - ACCEPT_EULA=Y
+    ports:
+      - 1451:1433
+  sqldbcat: # instance name, update it in service, this will be the container name 
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=P@ssw0rd_
+      - ACCEPT_EULA=Y
+    ports:
+      - 1452:1433

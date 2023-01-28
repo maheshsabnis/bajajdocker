@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProductService.Models;
+using CategoryService.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +20,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-   
-
 }
-// Running MIgration Programatically to create database
-// app.Services: The Service Collection
-// .CreateScope(), this will read the registered DbCOntext in DI
+
 using (var scope = app.Services.CreateScope())
 {
     // THis will read the DbContext class and its Conenction String with DbSet<Product>
@@ -35,11 +30,10 @@ using (var scope = app.Services.CreateScope())
     shopContext.Database.EnsureCreated();
 
 }
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
-
