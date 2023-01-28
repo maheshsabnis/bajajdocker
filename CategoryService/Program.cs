@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ShoppingDbContext>(options =>
+builder.Services.AddDbContext<CatShoppingDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnStr"));
 });
@@ -25,7 +25,7 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     // THis will read the DbContext class and its Conenction String with DbSet<Product>
-    var shopContext = scope.ServiceProvider.GetRequiredService<ShoppingDbContext>();
+    var shopContext = scope.ServiceProvider.GetRequiredService<CatShoppingDbContext>();
     // Run the Migration over the COnnectionString to create database
     shopContext.Database.EnsureCreated();
 

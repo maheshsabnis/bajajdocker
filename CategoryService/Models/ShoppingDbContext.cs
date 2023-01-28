@@ -2,9 +2,9 @@
 
 namespace CategoryService.Models
 {
-    public class ShoppingDbContext : DbContext
+    public class CatShoppingDbContext : DbContext
     {
-        public ShoppingDbContext(DbContextOptions<ShoppingDbContext> options):base(options)
+        public CatShoppingDbContext(DbContextOptions<CatShoppingDbContext> options):base(options)
         {
 
         }

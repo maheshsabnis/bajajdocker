@@ -13,9 +13,9 @@ namespace CategoryService.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ShoppingDbContext _context;
+        private readonly CatShoppingDbContext _context;
 
-        public CategoriesController(ShoppingDbContext context)
+        public CategoriesController(CatShoppingDbContext context)
         {
             _context = context;
         }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CategoryService.Migrations
 {
-    [DbContext(typeof(ShoppingDbContext))]
+    [DbContext(typeof(CatShoppingDbContext))]
     [Migration("20230128092024_firstMIgration")]
     partial class firstMIgration
     {

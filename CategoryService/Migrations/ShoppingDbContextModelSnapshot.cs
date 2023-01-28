@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CategoryService.Migrations
 {
-    [DbContext(typeof(ShoppingDbContext))]
+    [DbContext(typeof(CatShoppingDbContext))]
     partial class ShoppingDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
