@@ -73,7 +73,9 @@ ENTRYPOINT [ "dotnet","ProductService.dll" ]
     - To pull the image
         - docker pull [REGISTRY-NAME]/[IMAGE-NAME]:[TAG]
 
-         docker pull mast007/productsservice:v1
+        - docker pull mast007/productsservice:v1
+
+        -  docker run -p 9009:80 --name=prdcontainer mast007/productsservice:v1 
 
 
 
