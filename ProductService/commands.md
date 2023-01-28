@@ -19,7 +19,7 @@
 
 ```` html
 # Pull the Base image for the ASP.NET COre App to run on it
-FROM mcr.microsoft.com/dotnet/aspnet:6.0.13-bullseye-slim-amd64 as builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0 as builder
 # Set the Work Directory inside the image where application files will be copied 
 WORKDIR /src
 # COPY the Project file to the Image
@@ -31,7 +31,7 @@ COPY . .
 # Inform the Image that the Base Runtime is read from the imported image
 RUN dotnet build ProductService.csproj -c debug -o /src/out
 # Point to Work Directrory from where the application will be accessible
-FROM mcr.microsoft.com/dotnet/aspnet:6.0.13-bullseye-slim-amd64
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 # COPY the Path from where the execution will takes place indise the image
 WORKDIR /app
 COPY --from=builder /src/out .
@@ -40,10 +40,52 @@ EXPOSE 80
 # Set the Entrypoint to the Application
 ENTRYPOINT [ "dotnet","ProductService.dll" ]
 ````
+
+- MAke sure that the .dockerignore file is added, tis file will contain all those paths which are not suppoed to be copied on image 
 - Command to Build the Docker Image
     - go to the path where the dockerfile exist
     - docker build . -t [IMAGE-NAME]:[TAG]
         - The image name MUST be in lower case
+
+# Running the Image
+- We need Container to run the image
+- docker run -p [LOCAL-MACHINE-PORT]:[PORT-EXPOSED-BY-IMAGE] --name=[CONTAINER-NAME] [IMAGE-NAME]:[TAG]
+- e.g.
+   - docker run -p 9009:80 --name=prdcontainer productsservice:v1 
+- STarting te already available container
+    - docker start [CONTAINER-NAME]
+- Stop the COntainer
+    - docker stop [COTAINER-NAME]
+- Deleting the COntainer
+    - MAke sure that the Container is Stopped
+    - docker rm [CONTAINER-NAME]
+
+# Publishing the image 
+    - THis can be done using Repositories e.g. Docker Hub, Azure COntainer Registry (ACR), and Elastic COntainer Register (AWS ECR)
+    - Login on the REgister
+        - docker login
+    - Tag the Image to the registery name
+        - docker tag [IMAGE-NAME]:[TAG] [REGISTRY-NAME]/[IMAGE-NAME]:[TAG]
+        - e.g.
+            - docker tag productsservice:v1 mast007/productsservice:v1
+    - Push this new tagged image
+        - docker push [REGISTRY-NAME]/[IMAGE-NAME]:[TAG]
+    - To pull the image
+        - docker pull [REGISTRY-NAME]/[IMAGE-NAME]:[TAG]
+
+         docker pull mast007/productsservice:v1
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
